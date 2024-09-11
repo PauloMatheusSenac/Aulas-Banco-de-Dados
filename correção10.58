@@ -192,59 +192,69 @@ CREATE TABLE extras (
     FOREIGN KEY (id_cadastro) REFERENCES cadastro(id_cadastro)
 );
 
-
+-- Criação da tabela os
 CREATE TABLE os (
-id_documento
-emissao
-cliente
-previsao
-descricao
-execucao
-servico
-variante
-quantidade
-valor 
+    id_documento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    emissao DATE,
+    cliente INT,
+    previsao DATE,
+    descricao TEXT,
+    execucao DATE,
+    servico VARCHAR(255),
+    variante VARCHAR(50),
+    quantidade DECIMAL(10, 2),
+    valor DECIMAL(10, 2),
+    FOREIGN KEY (cliente) REFERENCES cadastro(id_cadastro)
 );
 
-CREATE TABLE pecas(
-codigo
-descricao
-variante
-ps
-qtd_base
-qtd
-um
-custo_unitario
-qt_fixa_variavel
-ordem
-ci
-origem
-status_peca ENUM ('Ativo','Inativo') NOT NUll
-
+-- Criação da tabela pecas
+CREATE TABLE pecas (
+    codigo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255),
+    variante VARCHAR(50),
+    ps VARCHAR(50),
+    qtd_base DECIMAL(10, 2),
+    qtd DECIMAL(10, 2),
+    um VARCHAR(50),
+    custo_unitario DECIMAL(10, 2),
+    qt_fixa_variavel ENUM('Fixa', 'Variável'),
+    ordem INT,
+    ci VARCHAR(50),
+    origem VARCHAR(50),
+    status_peca ENUM('Ativo', 'Inativo') NOT NULL
 );
 
+-- Criação da tabela vendas
 CREATE TABLE vendas (
-id_venda
-sequencia
-emissao
-vencimento
-previsao_de_faturamento
-aprovacao_cliente
-hora_aprovacao
-embarques
-prazo_entrega
-n_pedido_de_compra
-vendedor
-historico
-faturamentos
-cliente
-end_entrega
-tabela_de_preco
-transportadora1
-transportadora2
-tipo_frete
-valor_de_frete
-%
-valor_desconto_rateado
-contato
+    id_venda INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sequencia INT,
+    emissao DATE,
+    vencimento DATE,
+    previsao_de_faturamento DATE,
+    aprovacao_cliente DATE,
+    hora_aprovacao TIMESTAMP,
+    embarques INT,
+    prazo_entrega DATE,
+    n_pedido_de_compra VARCHAR(50),
+    vendedor INT,
+    historico TEXT,
+    faturamentos TEXT,
+    cliente INT,
+    end_entrega INT,
+    tabela_de_preco INT,
+    transportadora1 INT,
+    transportadora2 INT,
+    tipo_frete VARCHAR(50),
+    valor_de_frete DECIMAL(10, 2),
+    valor_desconto_rateado DECIMAL(10, 2),
+    contato INT,
+    FOREIGN KEY (vendedor) REFERENCES vendedores(id_vendedor),
+    FOREIGN KEY (cliente) REFERENCES cadastro(id_cadastro),
+    FOREIGN KEY (end_entrega) REFERENCES enderecos(id_endereco),
+    FOREIGN KEY (tabela_de_preco) REFERENCES tabela_preco(id_tabela_preco),
+    FOREIGN KEY (transportadora1) REFERENCES cadastro(id_cadastro),
+    FOREIGN KEY (transportadora2) REFERENCES cadastro(id_cadastro),
+    FOREIGN KEY (contato) REFERENCES contatos(id_contato)
 );
+
+
