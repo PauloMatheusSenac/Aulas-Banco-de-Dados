@@ -192,15 +192,59 @@ CREATE TABLE extras (
     FOREIGN KEY (id_cadastro) REFERENCES cadastro(id_cadastro)
 );
 
--- Correção na instrução SELECT
-SELECT 
-    c.nome, 
-    c.telefone_com, 
-    c.telefone_res, 
-    c.cpf, 
-    cr.quem_indicou 
-FROM 
-    cadastro c
-LEFT JOIN 
-    cliente_relacionado cr ON c.id_cadastro = cr.id_cliente1
-   OR c.id_cadastro = cr.id_cliente2;
+
+CREATE TABLE os (
+id_documento
+emissao
+cliente
+previsao
+descricao
+execucao
+servico
+variante
+quantidade
+valor 
+);
+
+CREATE TABLE pecas(
+codigo
+descricao
+variante
+ps
+qtd_base
+qtd
+um
+custo_unitario
+qt_fixa_variavel
+ordem
+ci
+origem
+status_peca ENUM ('Ativo','Inativo') NOT NUll
+
+);
+
+CREATE TABLE vendas (
+id_venda
+sequencia
+emissao
+vencimento
+previsao_de_faturamento
+aprovacao_cliente
+hora_aprovacao
+embarques
+prazo_entrega
+n_pedido_de_compra
+vendedor
+historico
+faturamentos
+cliente
+end_entrega
+tabela_de_preco
+transportadora1
+transportadora2
+tipo_frete
+valor_de_frete
+%
+valor_desconto_rateado
+contato
+);
